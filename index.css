@@ -1,0 +1,537 @@
+:root {
+    --bg-dark: #0b0f19;
+    --card-bg: #131a26;
+    --accent-blue: #38bdf8;
+    --accent-green: #4ade80;
+    --accent-red: #f87171;
+    --text-primary: #f8fafc;
+    --text-muted: #94a3b8;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    padding: 0 40px;
+    position: relative;
+    overflow-x: hidden; /* Prevents unwanted horizontal scroll bars */
+    
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Dynamic Moving/Blurring Ambient Backdrop Layer */
+body::before {
+    content: "";
+    position: fixed;
+    top: -50px;
+    left: -50px;
+    width: calc(100% + 100px);
+    height: calc(100% + 100px);
+    z-index: -1; /* Pushes the animation safely behind all text elements */
+    
+    /* Layer 1: Your original grid mesh matrix */
+    background-image: 
+        linear-gradient(rgba(30, 41, 59, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 41, 59, 0.3) 1px, transparent 1px),
+        /* Layer 2: Soft cyan and purple deep space radial energy blooms */
+        radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+    
+    background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%;
+    background-position: center top;
+    
+    /* Drives both the grid drifting locomotion and the organic focus breathing loop */
+    animation: 
+        backgroundDrift 25s linear infinite,
+        atmosphericBlur 12s ease-in-out infinite alternate;
+}
+
+/* --- ATMOSPHERIC BLUR & COGNITIVE STATE MOVEMENTS --- */
+
+@keyframes atmosphericBlur {
+    0% {
+        filter: blur(0px) contrast(100%);
+        transform: scale(1);
+    }
+    50% {
+        /* Gently diffuses the matrix lines into a foggy glow midway through the cycle */
+        filter: blur(4px) brightness(1.1) contrast(95%);
+        transform: scale(1.02); /* Creates a subtle slow-motion breathing swell */
+    }
+    100% {
+        filter: blur(1px) contrast(100%);
+        transform: scale(1);
+    }
+}
+
+/* Optimization fix for your existing backgroundDrift keyframe */
+@keyframes backgroundDrift {
+    0% { background-position: 0px 0px, 0px 0px, 0% 0%, 0% 0%; }
+    100% { background-position: 40px 40px, 40px 40px, 0% 0%, 0% 0%; }
+}
+
+/* Header & Nav */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0;
+    
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+.logo {
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.logo span { color: var(--accent-blue); }
+
+nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+nav a:hover { color: var(--accent-blue); }
+
+/* Hero Section */
+.hero {
+    padding: 100px 0;
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #fff;
+}
+
+/* 2. Flowing Text Gradient Effect */
+.hero .highlight {
+    background: linear-gradient(to right, #38bdf8, #818cf8, #34d399, #38bdf8);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGradientShift 4s linear infinite;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+/* Interactive Elements & Hovers */
+a.btn-primary, button {
+    background-color: var(--accent-blue);
+    color: var(--bg-dark);
+    padding: 12px 24px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover:not(:disabled), .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+    background-color: #7dd3fc;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+a.btn-secondary {
+    border: 1px solid var(--text-muted);
+    color: var(--text-primary);
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a.btn-secondary:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    background-color: rgba(56, 189, 248, 0.05);
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.05);
+}
+
+/* Project Grid Area */
+.project-section { 
+    padding: 80px 0; 
+    border-top: 1px solid #1e293b; 
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+.section-title { margin-bottom: 40px; }
+.section-title h2 { font-size: 2rem; margin-bottom: 10px; }
+.section-title p { color: var(--text-muted); }
+
+.project-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+@media (max-width: 768px) {
+    .project-grid { grid-template-columns: 1fr; }
+}
+.social-links {
+    position: relative; /* Allows z-index to work */
+    z-index: 10;        /* Forces it to sit on top of everything else */
+}
+
+.social-links a {
+    position: relative;
+    z-index: 11;
+}
+/* Embedded Core Engine View */
+.app-container {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #1e293b;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: border-color 0.3s ease;
+}
+
+.app-container:focus-within {
+    border-color: rgba(56, 189, 248, 0.4);
+}
+
+.input-area {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.input-area input {
+    flex: 1;
+    background: var(--bg-dark);
+    border: 1px solid #334155;
+    color: white;
+    padding: 10px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    border-radius: 6px;
+    text-align: center;
+    letter-spacing: 2px;
+    transition: all 0.25s ease;
+}
+
+.input-area input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+}
+
+.visual-track {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 30px 0;
+    min-height: 60px;
+}
+
+.char-box {
+    width: 45px;
+    height: 45px;
+    background-color: var(--bg-dark);
+    border: 2px solid #334155;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 6px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 3. Real-Time Processing Vector Logic States */
+.char-box.left-ptr, .char-box.right-ptr, .char-box.both-ptr {
+    animation: pulseSelect 0.4s ease-out forwards;
+    z-index: 10;
+}
+
+.char-box.left-ptr { border-color: var(--accent-blue); background-color: #0c4a6e; }
+.char-box.right-ptr { border-color: var(--accent-blue); background-color: #0c4a6e; }
+.char-box.both-ptr { border-color: #a855f7; background-color: #581c87; }
+
+.char-box.match {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+    animation: popSuccess 0.4s ease-out forwards;
+    box-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+}
+
+.char-box.mismatch {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+    animation: popSuccess 0.4s ease-out forwards;
+    box-shadow: 0 0 12px rgba(248, 113, 113, 0.3);
+}
+
+.status-alert {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    background: var(--bg-dark);
+    padding: 10px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+/* Content Details */
+.case-study h3 { margin-bottom: 10px; }
+.tech-tags span {
+    background: #1e293b;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    margin-right: 5px;
+    color: var(--accent-blue);
+}
+.case-study h4 { margin: 20px 0 5px 0; color: #cbd5e1; }
+.case-study p { color: var(--text-muted); }
+
+/* Tech Skill Cards Layout */
+.skills-section { 
+    padding: 80px 0; 
+    border-top: 1px solid #1e293b; 
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.skill-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+.skill-card h3 { margin-bottom: 10px; color: var(--accent-blue); }
+.skill-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid #1e293b;
+}
+
+/* --- MASTER MOTION TIMING ANIMATION KEYFRAMES --- */
+@keyframes backgroundDrift {
+    0% { background-position: 0px 0px; }
+    100% { background-position: 40px 40px; }
+}
+
+@keyframes textGradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseSelect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.18); box-shadow: 0 0 15px var(--accent-blue); }
+    100% { transform: scale(1.08); }
+}
+
+@keyframes popSuccess {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.22); }
+    100% { transform: scale(1); }
+}
+/* --- FLOATING RIGHT-ALIGNED TRANSPARENT PHOTO TEMPLATE --- */
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    width: 100%;
+}
+
+/* Container limits dimensions on the right side */
+.floating-photo-container {
+    position: relative;
+    width: 340px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Image styles making it lighter and background-less */
+.floating-photo-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    z-index: 2;
+    
+    /* Makes the image lighter, slightly translucent, and blends it into the dark mode grid */
+    opacity: 0.65;
+    filter: brightness(1.1) contrast(95%) drop-shadow(0 0 20px rgba(56, 189, 248, 0.1));
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When a visitor hovers, the image illuminates smoothly to full visibility */
+.floating-photo-container:hover img {
+    opacity: 0.95;
+    filter: brightness(1.2) contrast(100%) drop-shadow(0 0 30px rgba(56, 189, 248, 0.3));
+    transform: translateY(-4px);
+}
+
+/* Soft ambient cyan light behind your transparent cut-out image */
+.glow-backdrop {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+    transition: transform 0.4s ease;
+}
+
+.floating-photo-container:hover .glow-backdrop {
+    transform: scale(1.3);
+}
+
+/* ==========================================================================
+   CLEANED CYBERPUNK INTERACTIVE CIRCLE PHOTO LAYOUT (LARGE VERSION)
+   ========================================================================== */
+
+   .circle-profile-container {
+    position: fixed;
+    top: 50%;
+    left: 900px;                 /* Perfectly locks element to the screen's right edge */
+    transform: translateY(-0%); /* Keeps it centered vertically on the Y-axis */
+    width: 400px;                /* Proportional box bounding space */
+    height: 400px;
+    display: flex;
+    justify-content: center;     /* FIX: Changed from 'right' to 'center' */
+    align-items: center;         /* FIX: Changed from 'right' to 'center' */
+    z-index: 100;                /* Layered safely above your laboratory scroll decks */
+}
+
+/* 1. The Perfect Large Circular Mask Container */
+.profile-circle-mask {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    overflow: hidden;            /* Clips image backgrounds into a perfect, crisp circle */
+    background: var(--card-bg);
+    border: 2px solid #1e293b;
+    z-index: 3;
+    display: flex;
+    justify-content: center;     /* FIX: Ensures portrait stays perfectly dead-center */
+    align-items: center;         /* FIX: Ensures portrait stays perfectly dead-center */
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+}
+
+.profile-circle-mask img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;           /* Preserves natural photo aspect ratios without squishing faces */
+    opacity: 0.7;
+    filter: grayscale(15%) brightness(1.05);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. Outer Neon Rotating Orbit Ring */
+.rotating-ring {
+    position: absolute;
+    width: 450px;                /* FIX: Scaled up from 136px to clear the 420px image circle layout */
+    height: 450px;               /* FIX: Scaled up from 136px to match */
+    border-radius: 50%;
+    border: 2px dashed var(--accent-blue);
+    z-index: 2;
+    opacity: 0.4;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+    animation: orbitSpin 16s linear infinite; /* Infinite loop rotation rule */
+    transition: all 0.4s ease;
+}
+
+/* 3. Micro-Interaction Hover Systems */
+.circle-profile-container:hover .profile-circle-mask img {
+    opacity: 1;
+    filter: grayscale(0%) brightness(1.15);
+    transform: scale(1.05);      /* Subtle smooth zoom inside the frame boundary */
+}
+
+.circle-profile-container:hover .rotating-ring {
+    opacity: 0.9;
+    border-color: var(--accent-green); /* Swaps cyan theme to green on live state hovers */
+    border-style: solid;
+    box-shadow: 0 0 30px rgba(74, 222, 128, 0.4);
+    animation-duration: 5s;       /* Speeds up processing spin on hover feedback */
+}
+
+/* --- ORBIT ROTATION KEYFRAME --- */
+@keyframes orbitSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Rule: Hide layout tracking completely on mobile viewports so text remains legible */
+@media (max-width: 1200px) {
+    .circle-profile-container {
+        display: none;
+    }
+}
