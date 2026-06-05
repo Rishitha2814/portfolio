@@ -1,0 +1,14 @@
+body{
+    background-color: darkseagreen;
+}
+img{
+    height:500px;
+    width:1000px;
+    border-radius: 5px;
+    margin:10px;
+}
+a{
+    text-decoration: none;
+    margin:10px;
+    font-size: large;
+}
